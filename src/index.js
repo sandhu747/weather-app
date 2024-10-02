@@ -94,5 +94,5 @@ app.get("*", (req, res) => {
 
 // get /contact
 app.listen(port, () => {
-  console.log("app is running on port 3000");
+  console.log("app is running on port: " + port);
 });
