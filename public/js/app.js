@@ -21,18 +21,17 @@ weatherForm.addEventListener("submit", (e) => {
   first.textContent = "Loading...";
   second.textContent = "";
   third.textContent = "";
-  fetch("http://localhost:3000/weather?address=" + location).then(
-    (responce) => {
-      responce.json().then((data) => {
-        if (data.error) {
-          first.textContent = data.error;
-        } else {
-          second.textContent = data[0].forecast;
-          first.textContent = data[0].address;
-          third.textContent = data[0].Location;
-        }
-      });
-    }
-  );
+  // before http:localhost:300/weather?address but i remove to add dynamix port no in fetch function
+  fetch("/weather?address=" + location).then((responce) => {
+    responce.json().then((data) => {
+      if (data.error) {
+        first.textContent = data.error;
+      } else {
+        second.textContent = data[0].forecast;
+        first.textContent = data[0].address;
+        third.textContent = data[0].Location;
+      }
+    });
+  });
   search.value = "";
 });
