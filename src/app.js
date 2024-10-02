@@ -8,6 +8,8 @@ const forecast = require("./utilis/forecast");
 // to get localhost:3000
 // define path for express configuration
 const app = express();
+// defining a port dynamix
+const port = process.env.PORT || 3000;
 const viewPath = path.join(__dirname, "../template/views");
 const partialPath = path.join(__dirname, "../template/partial");
 
@@ -91,6 +93,6 @@ app.get("*", (req, res) => {
 });
 
 // get /contact
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log("app is running on port 3000");
 });
