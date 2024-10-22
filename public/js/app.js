@@ -15,9 +15,9 @@ weatherForm.addEventListener("submit", (e) => {
       if (data.error) {
         first.textContent = data.error;
       } else {
-        second.textContent = data[0].forecast;
-        first.textContent = data[0].address;
-        third.textContent = data[0].Location;
+        second.textContent = data.forecast;
+        first.textContent = data.address;
+        third.textContent = data.Location;
       }
     });
   });

@@ -1,10 +1,11 @@
 const request = require("request");
 const forecast = (lati, longi, callback) => {
   const url =
-    "https://api.weatherstack.com/current?access_key=052c5ae2d8866369a1b7d683a79a077a&query=" +
+    "https://api.openweathermap.org/data/2.5/weather?lat=" +
     lati +
-    "," +
-    longi;
+    "&lon=" +
+    longi +
+    "&appid=9c48be90b27b9f2d15076b1587daa02a&units=metric";
   // destructuring responnse in body and removing response
   // request({ url: url, json: true }, (error, response) => {
   request({ url, json: true }, (error, { body } = {}) => {
@@ -14,14 +15,15 @@ const forecast = (lati, longi, callback) => {
     } else if (body.error) {
       callback("Unable to find location, please try another search", undefined);
     } else {
-      callback(undefined, {
-        Temperature: `There is ${body.current.temperature} degree outside and feels like ${body.current.feelslike} degree.`,
-      });
+      const comment = `weather is ${body.weather[0].main} Temperature :${body.main.temp} feels_like :${body.main.feels_like} degree wind_speed: ${body.wind.speed}
+//    pressure: ${body.main.pressure} and humidity is ${body.main.humidity}.`;
+
+      callback(undefined, { comment });
     }
   });
 };
-// forecast(25.276987, 55.296249, (error, data) => {
-//   console.log("Error", error);
-//   console.log("Data", data);
-// });
+// // forecast(25.276987, 55.296249, (error, data) => {
+// console.log("Error", error);
+// console.log("Data", data);
+// // });
 module.exports = forecast;
