@@ -1,9 +1,9 @@
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
-const request = require("request");
 const geocode = require("./utilis/geocode");
 const forecast = require("./utilis/forecast");
+const cors = require("cors");
 
 // to get localhost:3000
 // define path for express configuration
@@ -47,32 +47,28 @@ app.get("/about", (req, res) => {
 });
 // get app.com/weather
 app.get("/weather", (req, res) => {
-  if (!req.query.address) {
+  const address = req.query.address;
+  if (!address) {
     return res.send({
       error: "You must provide the Address",
     });
   }
-  geocode(
-    req.query.address,
-    (error, { Latitude, Longitude, Location } = {}) => {
+  geocode(address, (error, { Latitude, Longitude, Location } = {}) => {
+    if (error) {
+      return res.send({ error });
+    }
+    forecast(Latitude, Longitude, (error, forecastData) => {
       if (error) {
         return res.send({ error });
       }
-      forecast(Latitude, Longitude, (error, forecastData) => {
-        if (error) {
-          return res.send({ error });
-        }
-        res.send([
-          {
-            forecast: forecastData.Temperature,
+      res.send({
+        forecast: forecastData.Temperature,
 
-            address: req.query.address,
-            Location: Location,
-          },
-        ]);
+        address: address,
+        Location: Location,
       });
-    }
-  );
+    });
+  });
 });
 
 // for 404 page render
