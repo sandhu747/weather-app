@@ -20,8 +20,8 @@ const forecast = (lati, longi, callback) => {
     }
   });
 };
-forecast(25.276987, 55.296249, (error, data) => {
-  console.log("Error", error);
-  console.log("Data", data);
-});
-// module.exports = forecast;
+// forecast(25.276987, 55.296249, (error, data) => {
+//   console.log("Error", error);
+//   console.log("Data", data);
+// });
+module.exports = forecast;
