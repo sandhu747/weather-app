@@ -8,6 +8,7 @@ const forecast = require("./utilis/forecast");
 // to get localhost:3000
 // define path for express configuration
 const app = express();
+app.use(cors());
 // defining a port dynamix
 const port = process.env.PORT || 3000;
 const viewPath = path.join(__dirname, "../template/views");
@@ -15,7 +16,7 @@ const partialPath = path.join(__dirname, "../template/partial");
 
 // setup static diractory to serve
 const directoryPath = path.join(__dirname, "../public");
-console.log(directoryPath);
+
 app.use(express.static(directoryPath));
 // setup handle bars and view location.
 app.set("views", viewPath);
@@ -72,7 +73,6 @@ app.get("/weather", (req, res) => {
       });
     }
   );
-  console.log(req.query.address);
 });
 
 // for 404 page render

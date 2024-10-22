@@ -18,6 +18,7 @@ const forecast = (lati, longi, callback) => {
         Temperature: `There is ${body.current.temperature} degree outside and feels like ${body.current.feelslike} degree.`,
       });
     }
+    console.log(body.current);
   });
 };
 // forecast(25.252, 55.28, (error, data) => {
